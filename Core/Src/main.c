@@ -67,9 +67,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	    if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13)== GPIO_PIN_SET)
 		{
 
-			//clear button_IT
-		    __HAL_GPIO_EXTI_CLEAR_FALLING_IT(GPIO_PIN_13);
-
 			switch(mode)
 			{
 			case 0:
@@ -151,9 +148,6 @@ void LOW_POWER_CLK_CONFIG(void)
   RCC->CR &= ~RCC_CR_PLLON;  // Disable PLL
   while((RCC->CR & RCC_CR_PLLRDY) != 0);  // Wait for PLL to stop
 
-  //ENTER Low Power Run Mode
-  HAL_PWREx_EnableLowPowerRunMode();
-
 
 }
 /* USER CODE END 0 */
@@ -195,11 +189,20 @@ int main(void)
 
   LOW_POWER_CLK_CONFIG();
 
+  // Suspend the Systick Interrupt
   HAL_SuspendTick();
 
+  //Enable the Sleep on Exit bit to make sure the processor goes back to SLEEP
+  //after an interrupt has been serviced
   HAL_PWR_EnableSleepOnExit();
 
-  HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+  /*
+   * Enter Sleep mode with the PWR_LOWPOWERREGULATOR_ON to make sure it
+   * runs on Low-Power Run and Low-Power Sleep mode.
+   * We also make sure to enable PWR_SLEEPENTRY_WFI so that the cpu wakes
+   * up from Low-Power Sleep Mode when the button EXTI interrupt is triggered
+   */
+  HAL_PWR_EnterSLEEPMode(PWR_LOWPOWERREGULATOR_ON, PWR_SLEEPENTRY_WFI);
 
   /* USER CODE END 2 */
 
