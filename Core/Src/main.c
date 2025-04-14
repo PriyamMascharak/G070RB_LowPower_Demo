@@ -155,7 +155,6 @@ void LOW_POWER_CLK_CONFIG(void)
   HAL_PWREx_EnableLowPowerRunMode();
 
 
-
 }
 /* USER CODE END 0 */
 
