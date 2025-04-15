@@ -75,16 +75,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				break;
 			case 1:
 				__HAL_TIM_SET_AUTORELOAD(&htim3, 999);
-				TIM3->EGR |= TIM_EGR_UG;  // Triggering UPDATE EVENT
+				TIM3->EGR |= TIM_EGR_UG;  // Triggering UPDATE EVENT, Gives clear feedback on button press
 				mode =2;
 				break;
 			case 2:
 				__HAL_TIM_SET_AUTORELOAD(&htim3, 1999);
-				TIM3->EGR |= TIM_EGR_UG;  // Triggering UPDATE EVENT
+				TIM3->EGR |= TIM_EGR_UG;  // Triggering UPDATE EVENT, Gives clear feedback on button press
 				mode = 3;
 				break;
 			case 3:
 				__HAL_TIM_SET_AUTORELOAD(&htim3, 499);
+				TIM3->EGR |= TIM_EGR_UG;  // Triggering UPDATE EVENT, Gives clear feedback on button press
 				HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_1);
 				mode =0;
 
@@ -101,6 +102,7 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 		HAL_TIM_Base_Start_IT(&htim6);
 	}
 }
+
 void LOW_POWER_CLK_CONFIG(void)
 {
   RCC_OscInitTypeDef RCC_LSI_init_Struct = {0};
@@ -184,7 +186,6 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
-//  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
   __HAL_RCC_PWR_CLK_ENABLE();
 
   LOW_POWER_CLK_CONFIG();
@@ -213,11 +214,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//	  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13)== GPIO_PIN_SET)
-//	  {
-//		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-//		HAL_Delay(100);
-//	  }
   }
   /* USER CODE END 3 */
 }
