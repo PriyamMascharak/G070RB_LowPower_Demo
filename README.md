@@ -1,6 +1,7 @@
 # G070RB_LowPower_Demo
 
 (Project Long Form Report: https://github.com/PriyamMascharak/G070RB_LowPower_Demo/blob/main/G070RB_LowPower_Demo_Report.pdf)
+(Schematic: https://github.com/PriyamMascharak/G070RB_LowPower_Demo/blob/main/demo_Schematic.pdf)
 
 This is a mini project to demonstrate the **Low Power Capabilities** of a **STM32G070RB**. This is essentially an interview assignment project I was given. This is the problem statement:-
 
@@ -27,6 +28,7 @@ optimize for power consumption. Use micro-controllers **low power modes** to ach
 ### Choices
 - Mostly used in-built **STHAL macros** and functions instead of direct register manipulation to increase readability and portability.
 - More power could have been saved by moving the vector table to the **SRAM** and disabling flash all together but that seemed like a bit overkill considering we are already using the low-power-regulator
+- used a little trick where i use rising inturrupt on the button instead of falling to make it register only one time per press(No matter how long the press is) 
 
 ## Program Flow:
 
