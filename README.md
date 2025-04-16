@@ -1,6 +1,7 @@
 # G070RB_LowPower_Demo
 
 (Project Long Form Report: https://github.com/PriyamMascharak/G070RB_LowPower_Demo/blob/main/G070RB_LowPower_Demo_Report.pdf)
+
 (Schematic: https://github.com/PriyamMascharak/G070RB_LowPower_Demo/blob/main/demo_Schematic.pdf)
 
 This is a mini project to demonstrate the **Low Power Capabilities** of a **STM32G070RB**. This is essentially an interview assignment project I was given. This is the problem statement:-
